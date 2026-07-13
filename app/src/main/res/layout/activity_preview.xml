@@ -64,7 +64,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filterOriginal"
-                    style="@style/Widget.Material3.FilterChip"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -72,28 +72,28 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filterGrayscale"
-                    style="@style/Widget.Material3.FilterChip"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_grayscale" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filterBw"
-                    style="@style/Widget.Material3.FilterChip"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_bw" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filterSharpen"
-                    style="@style/Widget.Material3.FilterChip"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_sharpen" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filterAuto"
-                    style="@style/Widget.Material3.FilterChip"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_auto" />
