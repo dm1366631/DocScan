@@ -104,7 +104,11 @@ class CameraManager(
     }
 
     fun isFlashSupported(): Boolean {
-        return imageCapture?.cameraInfo?.hasFlashUnit() == true
+        try {
+            return imageCapture?.camera?.cameraInfo?.hasFlashUnit() == true
+        } catch (e: Exception) {
+            return false
+        }
     }
 
     fun shutdown() {

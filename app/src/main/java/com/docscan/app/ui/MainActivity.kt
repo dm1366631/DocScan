@@ -115,12 +115,12 @@ class MainActivity : AppCompatActivity() {
                                 )
                             )
                         )
-                        val processed = ImageProcessor.autoEnhance(bitmap)
+                        val processed = ImageProcessor.applyFilter(bitmap, com.docscan.app.model.FilterType.AUTO_ENHANCE)
                         val processedPath = ImageProcessor.saveBitmap(
                             this@MainActivity, processed, "${doc.id}_${pageId}_processed"
                         )
-                        page.processedUri = Uri.parse(processedPath)
-                        doc.pages.add(page)
+                        val updatedPage = page.copy(processedUri = Uri.parse(processedPath))
+                        doc.pages.add(updatedPage)
                         processed.recycle()
                     }
                 }

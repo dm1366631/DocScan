@@ -54,8 +54,7 @@ class PdfViewerActivity : AppCompatActivity() {
 
                 pageAdapter = PageAdapter(
                     context = this@PdfViewerActivity,
-                    pages = doc.pages,
-                    onReorder = { /* TODO: drag to reorder */ }
+                    pages = doc.pages
                 )
                 binding.recyclerViewPages.layoutManager =
                     LinearLayoutManager(this@PdfViewerActivity, LinearLayoutManager.HORIZONTAL, false)

@@ -154,7 +154,7 @@ object ImageProcessor {
             }
 
             if (bestContour != null) {
-                val points = bestContour.toArray().map { PointF(it.x, it.y) }
+                val points = bestContour.toArray().map { PointF(it.x.toFloat(), it.y.toFloat()) }
                 bestContour.release()
                 return orderPoints(points)
             }
@@ -203,7 +203,7 @@ object ImageProcessor {
         val dst = Mat()
 
         val perspectiveTransform = Imgproc.getPerspectiveTransform(srcMat, dstMat)
-        Imgproc.warpPerspective(src, dst, perspectiveTransform, Size(maxWidth, maxHeight))
+        Imgproc.warpPerspective(src, dst, perspectiveTransform, Size(maxWidth.toDouble(), maxHeight.toDouble()))
 
         val result = Bitmap.createBitmap(dst.cols(), dst.rows(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(dst, result)

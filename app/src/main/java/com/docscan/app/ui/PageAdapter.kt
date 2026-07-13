@@ -11,8 +11,7 @@ import java.io.File
 
 class PageAdapter(
     private val context: Context,
-    private val pages: List<ScanPage>,
-    private val onReorder: (Int, Int) -> Unit
+    private val pages: List<ScanPage>
 ) : RecyclerView.Adapter<PageAdapter.PageViewHolder>() {
 
     inner class PageViewHolder(val binding: ItemPageBinding) :
