@@ -1,18 +1,13 @@
 package com.docscan.app.camera
 
 import android.Manifest
-import android.content.ContentValues
 import android.content.Context
 import android.content.pm.PackageManager
-import android.os.Build
-import android.provider.MediaStore
 import android.util.Log
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -72,23 +67,24 @@ class CameraManager(
     fun captureImage(onComplete: () -> Unit) {
         val imageCapture = imageCapture ?: return
 
+        val tempFile = File.createTempFile("capture_", ".jpg", context.cacheDir)
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(tempFile).build()
+
         imageCapture.takePicture(
+            outputOptions,
             cameraExecutor,
-            object : ImageCapture.OnImageCapturedCallback() {
-                override fun onCaptureSuccess(imageProxy: ImageProxy) {
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     try {
-                        val bitmap = imageProxy.toBitmap()
-                        val matrix = android.graphics.Matrix().apply {
-                            postRotate(imageProxy.imageInfo.rotationDegrees.toFloat())
+                        val bitmap = android.graphics.BitmapFactory.decodeFile(tempFile.absolutePath)
+                        if (bitmap != null) {
+                            onImageCaptured(bitmap)
+                        } else {
+                            Log.e(TAG, "Failed to decode captured image")
                         }
-                        val rotatedBitmap = android.graphics.Bitmap.createBitmap(
-                            bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true
-                        )
-                        onImageCaptured(rotatedBitmap)
                     } catch (e: Exception) {
                         Log.e(TAG, "Image processing failed", e)
                     } finally {
-                        imageProxy.close()
                         onComplete()
                     }
                 }

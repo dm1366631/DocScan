@@ -3,8 +3,6 @@ package com.docscan.app.camera
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.PointF
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.docscan.app.R
 import com.docscan.app.databinding.ActivityScannerBinding
-import com.docscan.app.processing.ImageProcessor
-import kotlinx.coroutines.launch
 
 class ScannerActivity : AppCompatActivity() {
 
@@ -100,7 +96,7 @@ class ScannerActivity : AppCompatActivity() {
             }
         }
 
-        binding.toolbar.setNavigationOnClickListener { finish() }
+        binding.toolbar.setOnClickListener { finish() }
     }
 
     private fun startCamera() {
@@ -132,7 +128,6 @@ class ScannerActivity : AppCompatActivity() {
     private fun returnResults() {
         val intent = Intent().apply {
             putExtra("page_count", capturedBitmaps.size)
-            // Store bitmaps in a static holder for the calling activity
             CapturedImagesHolder.images = ArrayList(capturedBitmaps)
         }
         setResult(Activity.RESULT_OK, intent)

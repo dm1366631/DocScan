@@ -15,9 +15,7 @@ import java.io.FileOutputStream
 object ImageProcessor {
 
     init {
-        if (!OpenCVLoader.initLocal()) {
-            OpenCVLoader.initDebug()
-        }
+        OpenCVLoader.initDebug()
     }
 
     suspend fun applyFilter(

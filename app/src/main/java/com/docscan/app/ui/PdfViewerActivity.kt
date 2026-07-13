@@ -29,10 +29,9 @@ class PdfViewerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPdfViewerBinding.inflate(layoutInflater)
-        setContentView(binding.toolbar.root)
+        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setContentView(binding.root)
 
         val docId = intent.getLongExtra(EXTRA_DOC_ID, -1)
         if (docId == -1L) {

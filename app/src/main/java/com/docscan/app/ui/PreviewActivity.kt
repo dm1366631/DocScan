@@ -3,8 +3,7 @@ package com.docscan.app.ui
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
+import android.graphics.BitmapFactory
 import android.graphics.PointF
 import android.net.Uri
 import android.os.Bundle
@@ -165,10 +164,10 @@ class PreviewActivity : AppCompatActivity() {
             ).coerceAtLeast(1)
         }
 
-        return BitmapFactory.Options().run {
-            inSampleSize = this@PreviewActivity.inSampleSize
-            BitmapFactory.decodeFile(file.absolutePath, this)
+        val decodeOptions = BitmapFactory.Options().apply {
+            inSampleSize = inSampleSize
         }
+        return BitmapFactory.decodeFile(file.absolutePath, decodeOptions)
     }
 
     private fun saveTempBitmap(bitmap: Bitmap): String {

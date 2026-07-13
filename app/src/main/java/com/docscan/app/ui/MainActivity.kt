@@ -106,17 +106,18 @@ class MainActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Default) {
                     images.forEach { bitmap ->
+                        val pageId = System.currentTimeMillis()
                         val page = ScanPage(
-                            id = System.currentTimeMillis(),
+                            id = pageId,
                             originalUri = Uri.parse(
                                 DocumentStorage.saveScanImage(
-                                    this@MainActivity, bitmap, doc.id, System.currentTimeMillis()
+                                    this@MainActivity, bitmap, doc.id, pageId
                                 )
                             )
                         )
                         val processed = ImageProcessor.autoEnhance(bitmap)
                         val processedPath = ImageProcessor.saveBitmap(
-                            this@MainActivity, processed, "${doc.id}_${page.id}_processed"
+                            this@MainActivity, processed, "${doc.id}_${pageId}_processed"
                         )
                         page.processedUri = Uri.parse(processedPath)
                         doc.pages.add(page)

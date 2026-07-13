@@ -7,8 +7,6 @@ class DocScanApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (!OpenCVLoader.initLocal()) {
-            OpenCVLoader.initDebug()
-        }
+        OpenCVLoader.initDebug()
     }
 }
