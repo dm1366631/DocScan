@@ -34,25 +34,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="v1.0.0"
-          # Delete existing release if it exists (to refresh assets)
-          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
-          git tag "$TAG" 2>/dev/null || true
-          git push origin "$TAG" 2>/dev/null || true
-          # Create new release with APKs
-          gh release create "$TAG" \
-            app/build/outputs/apk/debug/app-debug.apk \
-            app/build/outputs/apk/release/app-release-unsigned.apk \
-            --title "DocScan $TAG" \
-            --notes "## DocScan $TAG
+          DEBUG_APK="app/build/outputs/apk/debug/app-debug.apk"
+          RELEASE_APK="app/build/outputs/apk/release/app-release-unsigned.apk"
 
-          智能文档扫描应用。
+          # Ensure release exists (create if not, update if exists)
+          if ! gh release view "$TAG" &>/dev/null; then
+            gh release create "$TAG" --title "DocScan $TAG" --notes "DocScan v1.0.0"
+          fi
 
-          ### 功能
-          - 相机扫描（CameraX 实时预览）
-          - 自动文档边缘检测与透视校正（OpenCV）
-          - 5 种图像滤镜：原图、灰度、黑白、锐化、自动增强
-          - 多页扫描合并为 PDF
-          - 文档管理与分享
-
-          ### 安装
-          下载 \`app-debug.apk\` 直接安装即可。"
+          # Upload/overwrite APKs
+          gh release upload "$TAG" "$DEBUG_APK" --clobber
+          gh release upload "$TAG" "$RELEASE_APK" --clobber
